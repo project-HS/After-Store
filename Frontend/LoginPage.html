@@ -259,6 +259,20 @@
     </style>
 </head>
 <body>
+    <!-- Theme Selection Container -->
+    <div class="form-container theme-selection-container" id="themeSelectionContainer">
+        <form action="#" method="POST">
+            <h1>Select Theme</h1>
+            <label>
+                <input type="radio" name="theme" value="hell" required /> Hell
+            </label>
+            <label>
+                <input type="radio" name="theme" value="heaven" required /> Heaven
+            </label>
+            <button type="submit" id="selectTheme">Select Theme</button>
+        </form>
+    </div>
+
     <div class="container" id="container">
         <!-- Sign Up Container -->
         <div class="form-container sign-up-container">
@@ -311,6 +325,26 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Initially hide all other containers and show theme selection
+            document.getElementById('themeSelectionContainer').style.display = "block";
+            container.style.display = "none";
+        
+            const selectThemeButton = document.getElementById('selectTheme');
+        
+            selectThemeButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                // After theme selection, show the login container
+                document.getElementById('themeSelectionContainer').style.display = "none";
+                container.style.display = "block";
+            });
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Initially hide all other containers and show theme selection
+            document.getElementById('themeSelectionContainer').style.display = "block";
+            container.style.display = "none";
+        });
+        
         // Toggle between sign-in and sign-up containers
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
