@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,800">
-    <title>Weekly Sign in/up Form</title>
+    <title>Login/Signup</title>
     <style>
         * {
             box-sizing: border-box;
@@ -51,8 +51,8 @@
 
         button {
             border-radius: 20px;
-            border: 1px solid #FF4B2B;
-            background-color: #FF4B2B;
+            border: 1px solid #4f4f4f;
+            background-color: #0a0909;
             color: #FFFFFF;
             font-size: 12px;
             font-weight: bold;
@@ -166,9 +166,9 @@
         }
 
         .overlay {
-            background: #FF416C;
-            background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-            background: linear-gradient(to right, #FF4B2B, #FF416C);
+            background: #1c070c;
+            background: -webkit-linear-gradient(to right, #020101, #000000);
+            background: linear-gradient(to right, #919191, #080606);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 0 0;
@@ -249,7 +249,7 @@
         }
 
         footer i {
-            color: red;
+            color: rgb(39, 32, 32);
         }
 
         footer a {
@@ -259,20 +259,6 @@
     </style>
 </head>
 <body>
-    <!-- Theme Selection Container -->
-    <div class="form-container theme-selection-container" id="themeSelectionContainer">
-        <form action="#" method="POST">
-            <h1>Select Theme</h1>
-            <label>
-                <input type="radio" name="theme" value="hell" required /> Hell
-            </label>
-            <label>
-                <input type="radio" name="theme" value="heaven" required /> Heaven
-            </label>
-            <button type="submit" id="selectTheme">Select Theme</button>
-        </form>
-    </div>
-
     <div class="container" id="container">
         <!-- Sign Up Container -->
         <div class="form-container sign-up-container">
@@ -325,20 +311,6 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Initially hide all other containers and show theme selection
-            document.getElementById('themeSelectionContainer').style.display = "block";
-            container.style.display = "none";
-        
-            const selectThemeButton = document.getElementById('selectTheme');
-        
-            selectThemeButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                // After theme selection, show the login container
-                document.getElementById('themeSelectionContainer').style.display = "none";
-                container.style.display = "block";
-            });
-        });
         document.addEventListener('DOMContentLoaded', (event) => {
             // Initially hide all other containers and show theme selection
             document.getElementById('themeSelectionContainer').style.display = "block";
