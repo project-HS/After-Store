@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,800">
-    <title>Login/Signup</title>
+    <title>Weekly Sign in/up Form</title>
     <style>
         * {
             box-sizing: border-box;
@@ -102,9 +102,9 @@
                     0 10px 10px rgba(0,0,0,0.22);
             position: relative;
             overflow: hidden;
-            width: 768px;
-            max-width: 100%;
-            min-height: 480px;
+            width: 95%;
+            max-width: 900px;
+            min-height: 500px;
         }
 
         .form-container {
@@ -120,7 +120,7 @@
             z-index: 2;
         }
 
-        .container.right-panel-active .sign-in-container {
+        .container .right-panel-active .sign-in-container {
             transform: translateX(100%);
         }
 
@@ -256,29 +256,90 @@
             color: #3c97bf;
             text-decoration: none;
         }
+
+        .mob {
+            display: none;
+        }
+
+        #mobSignUp, #mobSignIn {
+            background-color: white;
+            color: black;
+            border-width: 3px;
+            user-select: none;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; } 100% { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; } 100% { opacity: 0; }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 95%;
+                margin: auto;
+            }
+            .mob {
+                display: block;
+            }
+            .overlay {
+                display: none;
+            }
+
+            .sign-in-container {
+                width: 100%;
+                display: block;
+                opacity: 1;
+            }
+            .container .sign-up-container {
+                transform: translateX(0%);
+                display: none;
+                width: 100%;
+                z-index: 4;
+                opacity: 0;
+            }
+            .overlay-container {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container" id="container">
         <!-- Sign Up Container -->
         <div class="form-container sign-up-container">
-            <form action="#" method="POST">
+            <form action="signup" method="POST">
                 <h1>Create Account</h1>
+                <br>
                 <input type="text" name="name" placeholder="Name" required />
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
+                <br>
                 <button type="submit">Sign Up</button>
+                <br>
+                <a class="mob">Already have an account?</a>
+                <button class="mob" id="mobSignIn" type="button">Sign In</button>
             </form>
         </div>
         
         <!-- Sign In Container -->
         <div class="form-container sign-in-container">
-            <form action="#" method="POST">
+            <form action="home" method="POST">
                 <h1>Sign in</h1>
+                <br>
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
-                <a href="#" id="forgotPassword">Forgot your password?</a>
+                <a id="forgotPassword">Forgot your password?</a>
                 <button type="submit">Login</button>
+                <br>
+                <a class="mob">New to After Store?</a>
+                <button class="mob" id="mobSignUp" type="button">Create account</button>
             </form>
         </div>
         
@@ -287,9 +348,10 @@
             <form action="#" method="POST">
                 <h1>Forgot Password</h1>
                 <input type="email" name="email" placeholder="Email" required />
-                <input type="text" name="name" placeholder="Name" required />
                 <input type="password" name="new_password" placeholder="New Password" required />
+                <br>
                 <button type="submit">Reset Password</button>
+                
             </form>
         </div>
 
@@ -298,12 +360,12 @@
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
                     <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
+                    <p>Please login to continue shopping with After Store</p>
                     <button class="ghost" id="signIn">Sign In</button>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start the journey with us</p>
+                    <h1>New to HELL?</h1>
+                    <p>Create an account with your details to start shopping with After Store</p>
                     <button class="ghost" id="signUp">Sign Up</button>
                 </div>
             </div>
@@ -312,15 +374,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
-            // Initially hide all other containers and show theme selection
-            document.getElementById('themeSelectionContainer').style.display = "block";
-            container.style.display = "none";
+            // :-)
+
         });
         
         // Toggle between sign-in and sign-up containers
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
+        const mobSignUpButton = document.getElementById('mobSignUp');
+        const mobSignInButton = document.getElementById('mobSignIn');
         const container = document.getElementById('container');
+        const signUpContainer = document.getElementsByClassName('sign-up-container')[0];
 
         signUpButton.addEventListener('click', () => {
             container.classList.add("right-panel-active");
@@ -329,6 +393,20 @@
 
         signInButton.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
+            document.getElementById('forgotPasswordContainer').style.display = "none";
+        });
+
+        mobSignUpButton.addEventListener('click', () => {
+            signUpContainer.style.display = 'block';
+            signUpContainer.style.animation = '0.3s fadeIn ease-out forwards';
+            document.getElementById('forgotPasswordContainer').style.display = "none";
+        });
+
+        mobSignInButton.addEventListener('click', () => {
+            signUpContainer.style.animation = '0.3s fadeOut ease-out forwards';
+            setTimeout(()=> {
+                signUpContainer.style.display = 'none';
+            },300);
             document.getElementById('forgotPasswordContainer').style.display = "none";
         });
         if (window.location.href.includes('/logout')) {
@@ -343,9 +421,7 @@
         
         forgotPasswordLink.addEventListener('click', (event) => {
             event.preventDefault();
-            // Show forgot password container
             forgotPasswordContainer.style.display = "block";
-            // Hide sign-in and sign-up containers
             container.classList.remove("right-panel-active");
         });
     </script>
