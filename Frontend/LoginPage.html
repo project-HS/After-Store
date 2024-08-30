@@ -8,10 +8,11 @@
     <style>
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: #f6f5f7;
+            background: url('hellloginbg.png') no-repeat center center;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,9 +52,9 @@
 
         button {
             border-radius: 20px;
-            border: 1px solid #4f4f4f;
-            background-color: #0a0909;
-            color: #FFFFFF;
+            border: none;
+            background-color: #fff;
+            color: #000;
             font-size: 12px;
             font-weight: bold;
             padding: 12px 45px;
@@ -77,7 +78,7 @@
         }
 
         form {
-            background-color: #FFFFFF;
+            background-color: rgba(0,0,0,0.22);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,10 +94,11 @@
             padding: 12px 15px;
             margin: 8px 0;
             width: 100%;
+            border-radius: 10px;
         }
 
         .container {
-            background-color: #fff;
+            background-color: rgba(0,0,0,0.4);
             border-radius: 10px;
             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
                     0 10px 10px rgba(0,0,0,0.22);
@@ -105,6 +107,7 @@
             width: 95%;
             max-width: 900px;
             min-height: 500px;
+            color: #fff;
         }
 
         .form-container {
@@ -166,9 +169,8 @@
         }
 
         .overlay {
-            background: #1c070c;
-            background: -webkit-linear-gradient(to right, #020101, #000000);
-            background: linear-gradient(to right, #919191, #080606);
+            background: -webkit-linear-gradient(to right, rgba(255, 50, 100, 0.5), rgba(255, 0, 0, 0.8));
+            background: linear-gradient(to right, rgba(255, 50, 100, 0.5), rgba(192, 176, 0, 0.8));
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 0 0;
@@ -262,16 +264,21 @@
         }
 
         #mobSignUp, #mobSignIn {
-            background-color: white;
-            color: black;
-            border-width: 3px;
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid white;
             user-select: none;
         }
 
         a {
             cursor: pointer;
+            color: #fff;
         }
 
+        .ghost {
+            color: white;
+            border: 1px solid
+        }
         
         @keyframes fadeIn {
             0% { opacity: 0; } 100% { opacity: 1; }
@@ -347,6 +354,7 @@
         <div class="form-container sign-in-container" id="forgotPasswordContainer" style="display: none;">
             <form action="#" method="POST">
                 <h1>Forgot Password</h1>
+                <br>
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="new_password" placeholder="New Password" required />
                 <br>
@@ -358,6 +366,7 @@
         <!-- Overlay Container -->
         <div class="overlay-container">
             <div class="overlay">
+                <div class="rider"></div>
                 <div class="overlay-panel overlay-left">
                     <h1>Welcome Back!</h1>
                     <p>Please login to continue shopping with After Store</p>
@@ -385,28 +394,41 @@
         const mobSignInButton = document.getElementById('mobSignIn');
         const container = document.getElementById('container');
         const signUpContainer = document.getElementsByClassName('sign-up-container')[0];
+        const signInContainer = document.getElementsByClassName('sign-in-container')[0];
 
         signUpButton.addEventListener('click', () => {
             container.classList.add("right-panel-active");
+            signInContainer.style.animation = '0.5s fadeOut ease-out forwards';
+            setTimeout(()=> {
+                signInContainer.style.display = 'none';
+            },500);
             document.getElementById('forgotPasswordContainer').style.display = "none";
         });
 
         signInButton.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
+            signInContainer.style.display = 'block';
+            signInContainer.style.animation = '1s fadeIn ease-out forwards';
             document.getElementById('forgotPasswordContainer').style.display = "none";
         });
 
         mobSignUpButton.addEventListener('click', () => {
             signUpContainer.style.display = 'block';
-            signUpContainer.style.animation = '0.3s fadeIn ease-out forwards';
+            signUpContainer.style.animation = '0.1s fadeIn ease-out forwards';
+            signInContainer.style.animation = '0.1s fadeOut ease-out forwards';
+            setTimeout(()=> {
+                signInContainer.style.display = 'none';
+            },100);
             document.getElementById('forgotPasswordContainer').style.display = "none";
         });
 
         mobSignInButton.addEventListener('click', () => {
-            signUpContainer.style.animation = '0.3s fadeOut ease-out forwards';
+            signUpContainer.style.animation = '0.1s fadeOut ease-out forwards';
+            signInContainer.style.display = 'block';
+            signInContainer.style.animation = '0.05s fadeIn ease-out forwards';
             setTimeout(()=> {
                 signUpContainer.style.display = 'none';
-            },300);
+            },100);
             document.getElementById('forgotPasswordContainer').style.display = "none";
         });
         if (window.location.href.includes('/logout')) {
@@ -422,6 +444,8 @@
         forgotPasswordLink.addEventListener('click', (event) => {
             event.preventDefault();
             forgotPasswordContainer.style.display = "block";
+            forgotPasswordContainer.style.animation = '0.3s fadeIn ease-out forwards';
+            signInContainer.style.animation = '0.2s fadeOut ease-out forwards';
             container.classList.remove("right-panel-active");
         });
     </script>
